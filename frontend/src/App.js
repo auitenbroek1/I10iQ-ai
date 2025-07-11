@@ -111,6 +111,7 @@ const App = () => {
       <button 
         onClick={() => setIsChatOpen(!isChatOpen)}
         className="bg-gradient-to-r from-golden to-yellow-600 text-white w-16 h-16 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-2xl hover:scale-110"
+        data-testid="chat-toggle-button"
       >
         💬
       </button>
