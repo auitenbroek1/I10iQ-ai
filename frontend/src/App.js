@@ -18,14 +18,30 @@ const App = () => {
       const scrolled = window.scrollY > 50;
       setIsScrolled(scrolled);
       
-      // Calculate scroll progress
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (window.scrollY / totalHeight) * 100;
-      setScrollProgress(progress);
+      // Calculate scroll progress with more stable calculation
+      const totalHeight = Math.max(
+        document.documentElement.scrollHeight - window.innerHeight,
+        1 // Prevent division by zero
+      );
+      const currentScroll = Math.min(window.scrollY, totalHeight);
+      const progress = Math.min((currentScroll / totalHeight) * 100, 100);
+      setScrollProgress(Math.round(progress * 100) / 100); // Round to prevent micro-fluctuations
     };
     
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    // Throttle scroll events to prevent excessive updates
+    let ticking = false;
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    window.addEventListener('scroll', throttledHandleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', throttledHandleScroll);
   }, []);
 
   // Intersection observer hooks for animations
@@ -101,8 +117,11 @@ const App = () => {
     <div className="min-h-screen bg-white">
       {/* Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-golden to-yellow-600 z-50 origin-left"
-        style={{ scaleX: scrollProgress / 100 }}
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600 z-50 origin-left"
+        style={{ 
+          transform: `scaleX(${Math.min(scrollProgress / 100, 1)})`,
+          willChange: 'transform'
+        }}
       />
 
       {/* Navigation */}
