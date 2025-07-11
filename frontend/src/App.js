@@ -76,7 +76,7 @@ const App = () => {
       description: "Identify high-value AI opportunities specific to your business through structured discovery sessions.",
       features: ["AI opportunity assessment", "Custom solution planning", "Implementation roadmap", "Resource planning"],
       icon: "🔍",
-      color: "from-yellow-500 to-orange-600"
+      color: "from-purple-500 to-pink-600"
     },
     {
       id: 4,
@@ -150,7 +150,7 @@ const App = () => {
                 onClick={() => setIsContactFormOpen(true)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-golden text-white px-6 py-2 rounded-full hover:bg-yellow-600 transition-colors"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all"
               >
                 Get Started
               </motion.button>
@@ -206,7 +206,7 @@ const App = () => {
               onClick={() => setIsContactFormOpen(true)}
               whileHover={{ scale: 1.05, boxShadow: "0 10px 25px rgba(234, 178, 0, 0.4)" }}
               whileTap={{ scale: 0.95 }}
-              className="bg-golden text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-yellow-600 transition-all duration-300 shadow-lg"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg"
             >
               Start Your AI Journey
             </motion.button>
@@ -253,7 +253,7 @@ const App = () => {
                   {service.icon}
                 </div>
                 <h3 className="text-xl font-bold text-navy mb-2">{service.title}</h3>
-                <p className="text-sm text-golden font-semibold mb-3">{service.subtitle}</p>
+                <p className="text-sm text-purple-600 font-semibold mb-3">{service.subtitle}</p>
                 <p className="text-gray-600 mb-4">{service.description}</p>
                 
                 <AnimatePresence>
@@ -274,7 +274,7 @@ const App = () => {
                             transition={{ delay: idx * 0.1 }}
                             className="flex items-center text-sm text-gray-600"
                           >
-                            <span className="text-golden mr-2">✓</span>
+                            <span className="text-blue-600 mr-2">✓</span>
                             {feature}
                           </motion.li>
                         ))}
@@ -286,7 +286,7 @@ const App = () => {
                           e.stopPropagation();
                           setIsContactFormOpen(true);
                         }}
-                        className="mt-4 bg-golden text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-yellow-600 transition-colors"
+                        className="mt-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:from-blue-700 hover:to-purple-700 transition-all"
                       >
                         Learn More
                       </motion.button>
@@ -328,7 +328,7 @@ const App = () => {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     className="flex items-center"
                   >
-                    <span className="text-golden text-xl mr-3">★</span>
+                    <span className="text-purple-600 text-xl mr-3">★</span>
                     <span className="text-gray-700">{point}</span>
                   </motion.div>
                 ))}
@@ -394,7 +394,7 @@ const App = () => {
                       initial={{ opacity: 0, scale: 0 }}
                       animate={testimonialsInView ? { opacity: 1, scale: 1 } : {}}
                       transition={{ delay: (index * 0.2) + (i * 0.1) }}
-                      className="text-golden text-xl"
+                      className="text-purple-600 text-xl"
                     >
                       ⭐
                     </motion.span>
@@ -402,7 +402,7 @@ const App = () => {
                 </div>
                 <p className="text-gray-700 mb-4 italic">"{testimonial.content}"</p>
                 <div className="flex items-center">
-                  <div className="w-12 h-12 bg-gradient-to-r from-navy to-golden rounded-full flex items-center justify-center text-white font-bold mr-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold mr-4">
                     {testimonial.avatar}
                   </div>
                   <div>
@@ -462,7 +462,7 @@ const App = () => {
               onClick={() => setIsContactFormOpen(true)}
               whileHover={{ scale: 1.05, boxShadow: "0 10px 25px rgba(234, 178, 0, 0.4)" }}
               whileTap={{ scale: 0.95 }}
-              className="bg-golden text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-yellow-600 transition-all duration-300 shadow-lg"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg"
             >
               Schedule Free Consultation
             </motion.button>
@@ -490,7 +490,7 @@ const App = () => {
                 <motion.a
                   href="https://www.linkedin.com/in/aaroni10/"
                   whileHover={{ scale: 1.1 }}
-                  className="text-golden hover:text-yellow-400 transition-colors"
+                  className="text-purple-600 hover:text-purple-500 transition-colors"
                 >
                   LinkedIn
                 </motion.a>

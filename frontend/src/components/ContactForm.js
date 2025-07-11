@@ -107,7 +107,7 @@ const ContactForm = ({ isOpen, onClose }) => {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-golden focus:border-transparent transition-all"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all"
               placeholder="Your full name"
             />
           </div>
@@ -122,7 +122,7 @@ const ContactForm = ({ isOpen, onClose }) => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-golden focus:border-transparent transition-all"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all"
               placeholder="your@email.com"
             />
           </div>
@@ -136,7 +136,7 @@ const ContactForm = ({ isOpen, onClose }) => {
               name="company"
               value={formData.company}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-golden focus:border-transparent transition-all"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all"
               placeholder="Your company name"
             />
           </div>
@@ -149,7 +149,7 @@ const ContactForm = ({ isOpen, onClose }) => {
               name="service_interest"
               value={formData.service_interest}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-golden focus:border-transparent transition-all"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all"
             >
               <option value="">Select a service</option>
               <option value="education">Education & Presentation</option>
@@ -183,7 +183,7 @@ const ContactForm = ({ isOpen, onClose }) => {
             className={`w-full py-3 px-6 rounded-lg font-semibold text-white transition-all ${
               isSubmitting
                 ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-golden hover:bg-yellow-600'
+                : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700'
             }`}
           >
             {isSubmitting ? (

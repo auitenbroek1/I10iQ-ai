@@ -4,7 +4,7 @@ A premium, conversion-focused landing page for i10iQ.ai - an AI consultancy that
 
 ## Features
 
-- **Premium Design**: Professional UI with Navy (#1f2640) and Golden (#eab200) brand colors
+- **Premium Design**: Professional UI with Navy (#1f2640), Blue (#2563eb), and Purple (#9333ea) brand colors
 - **Interactive Elements**: Expandable service cards, hover effects, and smooth animations
 - **AI Chat Widget**: Ready-to-integrate chat interface for AI chatbot connection
 - **Responsive Design**: Optimized for all devices and screen sizes
@@ -143,7 +143,8 @@ yarn test
 
 ## Brand Guidelines
 
-- **Primary Colors**: Navy (#1f2640), Golden (#eab200)
+- **Primary Colors**: Navy (#1f2640), Blue (#2563eb), Purple (#9333ea)
+- **Gradients**: Blue-to-Purple gradient for interactive elements
 - **Typography**: Professional system fonts
 - **Tone**: Trusted expert, anti-hype, results-focused
 - **Messaging**: "Cut through the AI hype, deliver measurable results"

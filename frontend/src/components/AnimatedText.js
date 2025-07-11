@@ -52,13 +52,13 @@ const AnimatedText = ({
           <motion.span
             animate={{ opacity: [1, 0] }}
             transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
-            className="inline-block w-1 h-full bg-golden ml-1"
+            className="inline-block w-1 h-full bg-purple-600 ml-1"
           >
             |
           </motion.span>
         </span>
       </div>
-      <span className="text-golden block text-center">{staticEnd}</span>
+      <span className="text-purple-600 block text-center">{staticEnd}</span>
     </div>
   );
 };

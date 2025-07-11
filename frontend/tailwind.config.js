@@ -7,7 +7,9 @@ module.exports = {
     extend: {
       colors: {
         navy: '#1f2640',
-        golden: '#eab200',
+        // golden: '#eab200', // Replaced with blue-purple gradient
+        primary: '#2563eb', // blue-600
+        secondary: '#9333ea', // purple-600
       },
       fontFamily: {
         sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'sans-serif'],
@@ -44,7 +46,8 @@ module.exports = {
       },
       boxShadow: {
         'custom': '0 10px 40px rgba(31, 38, 64, 0.1)',
-        'golden': '0 10px 40px rgba(234, 178, 0, 0.3)',
+        'primary': '0 10px 40px rgba(37, 99, 235, 0.3)', // blue shadow
+        'secondary': '0 10px 40px rgba(147, 51, 234, 0.3)', // purple shadow
       },
     },
   },

@@ -4,7 +4,9 @@
 
 :root {
   --navy: #1f2640;
-  --golden: #eab200;
+  --primary: #2563eb; /* blue-600 */
+  --secondary: #9333ea; /* purple-600 */
+  --golden: #eab200; /* deprecated - replaced with primary/secondary */
 }
 
 * {
@@ -35,17 +37,17 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--golden);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d4a000;
+  background: linear-gradient(135deg, #1d4ed8 0%, #7c3aed 100%);
 }
 
 /* Gradient text effect */
 .gradient-text {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--golden) 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -130,8 +132,8 @@ html {
   box-shadow: 0 10px 40px rgba(31, 38, 64, 0.1);
 }
 
-.shadow-golden {
-  box-shadow: 0 10px 40px rgba(234, 178, 0, 0.3);
+.shadow-primary {
+  box-shadow: 0 10px 40px rgba(37, 99, 235, 0.3);
 }
 
 /* Responsive typography */
@@ -198,8 +200,8 @@ html {
 }
 
 /* Custom focus states */
-.focus-golden:focus {
-  outline: 2px solid var(--golden);
+.focus-primary:focus {
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
