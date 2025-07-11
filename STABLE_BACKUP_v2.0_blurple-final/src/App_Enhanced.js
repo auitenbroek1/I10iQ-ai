@@ -5,15 +5,12 @@ import FloatingElements from './components/FloatingElements';
 import AnimatedText from './components/AnimatedText';
 import ContactForm from './components/ContactForm';
 import AIChatWidget from './components/AIChatWidget';
-import BrandLogo from './components/BrandLogo';
-import LearnMoreModal from './components/LearnMoreModal';
 import './App.css';
 
 const App = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeService, setActiveService] = useState(null);
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
-  const [isLearnMoreOpen, setIsLearnMoreOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
@@ -21,30 +18,14 @@ const App = () => {
       const scrolled = window.scrollY > 50;
       setIsScrolled(scrolled);
       
-      // Calculate scroll progress with more stable calculation
-      const totalHeight = Math.max(
-        document.documentElement.scrollHeight - window.innerHeight,
-        1 // Prevent division by zero
-      );
-      const currentScroll = Math.min(window.scrollY, totalHeight);
-      const progress = Math.min((currentScroll / totalHeight) * 100, 100);
-      setScrollProgress(Math.round(progress * 100) / 100); // Round to prevent micro-fluctuations
+      // Calculate scroll progress
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / totalHeight) * 100;
+      setScrollProgress(progress);
     };
     
-    // Throttle scroll events to prevent excessive updates
-    let ticking = false;
-    const throttledHandleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-    
-    window.addEventListener('scroll', throttledHandleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', throttledHandleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Intersection observer hooks for animations
@@ -56,36 +37,36 @@ const App = () => {
   const services = [
     {
       id: 1,
-      title: "The AI Level-Up",
+      title: "Education & Presentation",
       subtitle: "For teams new to practical AI",
-      description: "Patient, educational guidance through practical AI fundamentals, frameworks, and tools that cut through the hype and focus on real business value.",
-      features: ["AI fundamentals for business", "Practical use cases", "Industry-specific applications", "Measurable outcomes"],
+      description: "Transform AI curiosity into understanding through engaging presentations that cut through the hype.",
+      features: ["AI fundamentals for business", "Practical use cases", "Industry-specific applications", "ROI evaluation frameworks"],
       icon: "🎓",
       color: "from-blue-500 to-purple-600"
     },
     {
       id: 2,
-      title: "The AI-First Leader",
+      title: "Hands-On Implementation",
       subtitle: "Fastest path to AI confidence",
-      description: "Take your AI skills and abilities to the next level, creating a lasting competitive advantage for your business or career.",
-      features: ["Hands-on AI tools & automations", "Live implementation sessions", "Team skill building", "ROI evaluation frameworks"],
+      description: "Build real AI solutions together, developing skills that create lasting competitive advantage.",
+      features: ["Live implementation sessions", "Custom AI tool development", "Team skill building", "Measurable outcomes"],
       icon: "🛠️",
       color: "from-green-500 to-teal-600"
     },
     {
       id: 3,
-      title: "AI Discovery Workshop",
+      title: "Discovery Workshops",
       subtitle: "Strategic AI roadmap development",
       description: "Identify high-value AI opportunities specific to your business through structured discovery sessions.",
-      features: ["AI opportunity assessment", "Custom solution planning", "Implementation roadmap", "Readiness audit and resource planning"],
+      features: ["AI opportunity assessment", "Custom solution planning", "Implementation roadmap", "Resource planning"],
       icon: "🔍",
-      color: "from-purple-500 to-pink-600"
+      color: "from-yellow-500 to-orange-600"
     },
     {
       id: 4,
-      title: "AI Build Services",
+      title: "Build Services",
       subtitle: "Direct AI solution implementation",
-      description: "Custom AI solutions, advanced agent automation, and full implementation of high-value AI projects that deliver value from day one.",
+      description: "Custom AI solutions built to deliver measurable business value from day one.",
       features: ["Custom AI development", "Integration services", "Performance optimization", "Ongoing support"],
       icon: "⚡",
       color: "from-red-500 to-pink-600"
@@ -120,11 +101,8 @@ const App = () => {
     <div className="min-h-screen bg-white">
       {/* Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600 z-50 origin-left"
-        style={{ 
-          transform: `scaleX(${Math.min(scrollProgress / 100, 1)})`,
-          willChange: 'transform'
-        }}
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-golden to-yellow-600 z-50 origin-left"
+        style={{ scaleX: scrollProgress / 100 }}
       />
 
       {/* Navigation */}
@@ -140,9 +118,10 @@ const App = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.div 
+              className="text-2xl font-bold text-navy"
               whileHover={{ scale: 1.05 }}
             >
-              <BrandLogo />
+              i10iQ.ai
             </motion.div>
             <div className="hidden md:flex items-center space-x-8">
               <a href="#services" className="text-gray-700 hover:text-navy transition-colors">Services</a>
@@ -152,7 +131,7 @@ const App = () => {
                 onClick={() => setIsContactFormOpen(true)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all"
+                className="bg-golden text-white px-6 py-2 rounded-full hover:bg-yellow-600 transition-colors"
               >
                 Get Started
               </motion.button>
@@ -208,12 +187,11 @@ const App = () => {
               onClick={() => setIsContactFormOpen(true)}
               whileHover={{ scale: 1.05, boxShadow: "0 10px 25px rgba(234, 178, 0, 0.4)" }}
               whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg"
+              className="bg-golden text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-yellow-600 transition-all duration-300 shadow-lg"
             >
               Start Your AI Journey
             </motion.button>
             <motion.button
-              onClick={() => setIsLearnMoreOpen(true)}
               whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.1)" }}
               whileTap={{ scale: 0.95 }}
               className="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-navy transition-all duration-300"
@@ -256,7 +234,7 @@ const App = () => {
                   {service.icon}
                 </div>
                 <h3 className="text-xl font-bold text-navy mb-2">{service.title}</h3>
-                <p className="text-sm text-purple-600 font-semibold mb-3">{service.subtitle}</p>
+                <p className="text-sm text-golden font-semibold mb-3">{service.subtitle}</p>
                 <p className="text-gray-600 mb-4">{service.description}</p>
                 
                 <AnimatePresence>
@@ -277,7 +255,7 @@ const App = () => {
                             transition={{ delay: idx * 0.1 }}
                             className="flex items-center text-sm text-gray-600"
                           >
-                            <span className="text-blue-600 mr-2">✓</span>
+                            <span className="text-golden mr-2">✓</span>
                             {feature}
                           </motion.li>
                         ))}
@@ -289,7 +267,7 @@ const App = () => {
                           e.stopPropagation();
                           setIsContactFormOpen(true);
                         }}
-                        className="mt-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:from-blue-700 hover:to-purple-700 transition-all"
+                        className="mt-4 bg-golden text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-yellow-600 transition-colors"
                       >
                         Learn More
                       </motion.button>
@@ -312,14 +290,14 @@ const App = () => {
               transition={{ duration: 0.8 }}
             >
               <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6">
-                Why Choose <span className="text-blurple">i10iQ.AI</span>?
+                Why Choose i10iQ.ai?
               </h2>
               <p className="text-xl text-gray-600 mb-6">
                 We bridge the gap between AI potential and business reality. Our approach combines deep technical expertise with practical business acumen.
               </p>
               <div className="space-y-4">
                 {[
-                  "20+ years of combined tech leadership experience",
+                  "15+ years of combined tech leadership experience",
                   "Proven track record with Fortune 500 companies",
                   "Hands-on implementation, not just consulting",
                   "ROI-focused approach with measurable outcomes"
@@ -331,7 +309,7 @@ const App = () => {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     className="flex items-center"
                   >
-                    <span className="text-blurple text-xl mr-3">★</span>
+                    <span className="text-golden text-xl mr-3">★</span>
                     <span className="text-gray-700">{point}</span>
                   </motion.div>
                 ))}
@@ -343,20 +321,17 @@ const App = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="relative"
             >
-              <div className="w-full h-96 overflow-hidden rounded-2xl shadow-2xl">
-                <motion.img 
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
-                  src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?crop=entropy&cs=srgb&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-4.0.3&q=85"
-                  alt="Senior executive mentoring young tech professional"
-                  className="w-full h-full object-cover object-center"
-                />
-              </div>
+              <motion.img 
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+                src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?crop=entropy&cs=srgb&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-4.0.3&q=85"
+                alt="Senior executive mentoring young tech professional"
+                className="rounded-2xl shadow-2xl"
+              />
               <motion.div
-                initial={{ scale: 0 }}
-                animate={aboutInView ? { scale: 1 } : {}}
-                transition={{ duration: 0.6, delay: 0.8 }}
-                className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                className="absolute -top-4 -right-4 w-16 h-16 bg-golden rounded-full flex items-center justify-center text-white font-bold text-xl"
               >
                 AI
               </motion.div>
@@ -399,7 +374,7 @@ const App = () => {
                       initial={{ opacity: 0, scale: 0 }}
                       animate={testimonialsInView ? { opacity: 1, scale: 1 } : {}}
                       transition={{ delay: (index * 0.2) + (i * 0.1) }}
-                      className="text-purple-600 text-xl"
+                      className="text-golden text-xl"
                     >
                       ⭐
                     </motion.span>
@@ -407,7 +382,7 @@ const App = () => {
                 </div>
                 <p className="text-gray-700 mb-4 italic">"{testimonial.content}"</p>
                 <div className="flex items-center">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-navy to-golden rounded-full flex items-center justify-center text-white font-bold mr-4">
                     {testimonial.avatar}
                   </div>
                   <div>
@@ -467,7 +442,7 @@ const App = () => {
               onClick={() => setIsContactFormOpen(true)}
               whileHover={{ scale: 1.05, boxShadow: "0 10px 25px rgba(234, 178, 0, 0.4)" }}
               whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg"
+              className="bg-golden text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-yellow-600 transition-all duration-300 shadow-lg"
             >
               Schedule Free Consultation
             </motion.button>
@@ -487,7 +462,7 @@ const App = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <h3 className="text-2xl font-bold mb-4 text-blurple">i10iQ.AI</h3>
+              <h3 className="text-2xl font-bold mb-4">i10iQ.ai</h3>
               <p className="text-gray-300 mb-4">
                 Transforming businesses through practical AI implementation and strategic consulting.
               </p>
@@ -495,7 +470,7 @@ const App = () => {
                 <motion.a
                   href="https://www.linkedin.com/in/aaroni10/"
                   whileHover={{ scale: 1.1 }}
-                  className="text-blurple hover:text-purple-400 transition-colors"
+                  className="text-golden hover:text-yellow-400 transition-colors"
                 >
                   LinkedIn
                 </motion.a>
@@ -504,20 +479,20 @@ const App = () => {
             <div>
               <h4 className="text-lg font-semibold mb-4">Services</h4>
               <ul className="space-y-2 text-gray-300">
-                <li>The AI Level-Up</li>
-                <li>The AI-First Leader</li>
-                <li>AI Discovery Workshop</li>
-                <li>AI Build Services</li>
+                <li>Education & Presentation</li>
+                <li>Hands-On Implementation</li>
+                <li>Discovery Workshops</li>
+                <li>Build Services</li>
               </ul>
             </div>
             <div>
               <h4 className="text-lg font-semibold mb-4">Contact</h4>
-              <p className="text-gray-300 mb-2">info@i10iQ.ai</p>
-              <p className="text-gray-300">Iowa, USA</p>
+              <p className="text-gray-300 mb-2">hello@i10iq.ai</p>
+              <p className="text-gray-300">Central Iowa, USA</p>
             </div>
           </div>
           <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
-            <p>&copy; 2025 i10iQ.AI. All rights reserved. Built with AI-powered development.</p>
+            <p>&copy; 2025 i10iQ.ai. All rights reserved. Built with AI-powered development.</p>
           </div>
         </div>
       </footer>
@@ -526,18 +501,6 @@ const App = () => {
       <ContactForm 
         isOpen={isContactFormOpen} 
         onClose={() => setIsContactFormOpen(false)} 
-      />
-
-      {/* Learn More Modal */}
-      <LearnMoreModal 
-        isOpen={isLearnMoreOpen} 
-        onClose={() => setIsLearnMoreOpen(false)}
-        onSchedule={() => setIsContactFormOpen(true)}
-        onChat={() => {
-          // Trigger chat widget to open
-          const chatWidget = document.querySelector('.fixed.bottom-6.right-6 button');
-          if (chatWidget) chatWidget.click();
-        }}
       />
 
       {/* AI Chat Widget */}
