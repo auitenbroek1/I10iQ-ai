@@ -234,12 +234,13 @@ const AIChatWidget = () => {
           )}
         </AnimatePresence>
         
-        {/* Notification dot */}
+        {/* Notification dot - fixed to prevent layout shift */}
         {!isOpen && (
           <motion.div
-            animate={{ scale: [1, 1.2, 1] }}
+            animate={{ opacity: [1, 0.5, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
             className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center"
+            style={{ transform: 'none' }} // Prevent any transform-based animations
           >
             !
           </motion.div>
