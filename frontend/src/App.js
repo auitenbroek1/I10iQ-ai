@@ -348,9 +348,10 @@ const App = () => {
                 className="rounded-2xl shadow-2xl"
               />
               <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute -top-4 -right-4 w-16 h-16 bg-golden rounded-full flex items-center justify-center text-white font-bold text-xl"
+                initial={{ scale: 0 }}
+                animate={aboutInView ? { scale: 1 } : {}}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg"
               >
                 AI
               </motion.div>

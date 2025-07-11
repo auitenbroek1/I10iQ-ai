@@ -202,7 +202,7 @@ const AIChatWidget = () => {
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="bg-gradient-to-r from-golden to-yellow-600 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center relative overflow-hidden"
+        className="bg-gradient-to-r from-blue-600 to-purple-600 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center relative overflow-hidden"
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
