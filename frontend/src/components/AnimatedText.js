@@ -45,18 +45,20 @@ const AnimatedText = ({
 
   return (
     <div className={className}>
-      <span className="inline-block">
-        {currentText}
-        <motion.span
-          animate={{ opacity: [1, 0] }}
-          transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
-          className="inline-block w-1 h-full bg-golden ml-1"
-        >
-          |
-        </motion.span>
-      </span>
-      <br />
-      <span className="text-golden">{staticEnd}</span>
+      {/* Fixed height container to prevent layout shifts on mobile */}
+      <div className="h-16 md:h-20 flex items-end justify-center">
+        <span className="inline-block text-center leading-tight">
+          {currentText}
+          <motion.span
+            animate={{ opacity: [1, 0] }}
+            transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
+            className="inline-block w-1 h-full bg-golden ml-1"
+          >
+            |
+          </motion.span>
+        </span>
+      </div>
+      <span className="text-golden block text-center">{staticEnd}</span>
     </div>
   );
 };
