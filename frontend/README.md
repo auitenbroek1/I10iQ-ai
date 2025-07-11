@@ -1,70 +1,188 @@
-# Getting Started with Create React App
+# i10iQ.ai Landing Page
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A premium, conversion-focused landing page for i10iQ.ai - an AI consultancy that cuts through the hype and delivers measurable business results.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Premium Design**: Professional UI with Navy (#1f2640) and Golden (#eab200) brand colors
+- **Interactive Elements**: Expandable service cards, hover effects, and smooth animations
+- **AI Chat Widget**: Ready-to-integrate chat interface for AI chatbot connection
+- **Responsive Design**: Optimized for all devices and screen sizes
+- **SEO Optimized**: Structured data, meta tags, and performance optimized
+- **Conversion Focused**: Strategic layout designed to drive user engagement
 
-### `npm start`
+## Project Structure
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+i10iQ-ai/
+├── public/
+│   ├── index.html          # Main HTML template
+│   ├── manifest.json       # PWA manifest
+│   ├── robots.txt          # SEO robots file
+│   └── favicon.ico         # Site icon
+├── src/
+│   ├── App.js              # Main React component
+│   ├── App.css             # Component styles
+│   ├── index.js            # React entry point
+│   └── index.css           # Global styles
+├── package.json            # Dependencies and scripts
+├── tailwind.config.js      # Tailwind CSS configuration
+├── postcss.config.js       # PostCSS configuration
+├── craco.config.js         # CRACO configuration
+└── vercel.json             # Vercel deployment configuration
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation & Development
 
-### `npm test`
+```bash
+# Install dependencies
+yarn install
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Start development server
+yarn start
 
-### `npm run build`
+# Build for production
+yarn build
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Run tests
+yarn test
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Deployment
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Deploy to Vercel (Recommended)
 
-### `npm run eject`
+1. **Push to GitHub**: Ensure all files are committed and pushed to your GitHub repository
+2. **Connect to Vercel**: 
+   - Go to [vercel.com](https://vercel.com)
+   - Sign in with your GitHub account
+   - Click "New Project"
+   - Import your repository
+3. **Configure Settings**:
+   - Framework Preset: Create React App
+   - Build Command: `yarn build`
+   - Output Directory: `build`
+   - Install Command: `yarn install`
+4. **Deploy**: Click "Deploy" and your site will be live in minutes
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Deploy to Netlify
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Build the project**:
+   ```bash
+   yarn build
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. **Deploy to Netlify**:
+   - Go to [netlify.com](https://netlify.com)
+   - Drag and drop the `build` folder
+   - Or connect your GitHub repository
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Deploy to GitHub Pages
 
-## Learn More
+1. **Install gh-pages**:
+   ```bash
+   yarn add --dev gh-pages
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. **Update package.json**:
+   ```json
+   {
+     "homepage": "https://yourusername.github.io/i10iQ-ai",
+     "scripts": {
+       "predeploy": "yarn build",
+       "deploy": "gh-pages -d build"
+     }
+   }
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. **Deploy**:
+   ```bash
+   yarn deploy
+   ```
 
-### Code Splitting
+## Technologies Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **React 19**: Modern React with hooks
+- **TailwindCSS**: Utility-first CSS framework
+- **CRACO**: Create React App Configuration Override
+- **PostCSS**: CSS processing
+- **Responsive Design**: Mobile-first approach
 
-### Analyzing the Bundle Size
+## Features Breakdown
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Hero Section
+- Full-screen immersive design
+- Professional imagery
+- Clear value proposition
+- Dual call-to-action buttons
 
-### Making a Progressive Web App
+### Services Section
+- Interactive expandable cards
+- 4 service offerings:
+  - Education & Presentation
+  - Hands-On Implementation
+  - Discovery Workshops
+  - Build Services
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### About Section
+- Founder credibility
+- Key differentiators
+- Professional imagery
+- Experience highlights
 
-### Advanced Configuration
+### Chat Widget
+- Floating chat interface
+- Professional branding
+- Ready for AI integration
+- Responsive design
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Social Proof
+- Client testimonials
+- 5-star ratings
+- Success stories
 
-### Deployment
+## Brand Guidelines
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **Primary Colors**: Navy (#1f2640), Golden (#eab200)
+- **Typography**: Professional system fonts
+- **Tone**: Trusted expert, anti-hype, results-focused
+- **Messaging**: "Cut through the AI hype, deliver measurable results"
 
-### `npm run build` fails to minify
+## AI Chat Integration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The chat widget is ready for AI chatbot integration. To connect:
+
+1. Add your AI service API endpoint
+2. Update the chat functionality in `App.js`
+3. Implement message handling and responses
+4. Add authentication if required
+
+## SEO Optimization
+
+- Meta tags for social media sharing
+- Structured data for search engines
+- Optimized page titles and descriptions
+- Sitemap and robots.txt included
+
+## Performance
+
+- Optimized images
+- Lazy loading
+- Minimized bundle size
+- Fast loading times
+- Responsive design
+
+## Contact
+
+For questions about this landing page:
+- Email: aaron@i10iq.com
+- LinkedIn: https://www.linkedin.com/in/aaroni10/
+- Website: https://i10iq.com
+
+## License
+
+This project is proprietary to i10iQ.ai.
+
+---
+
+*Built with precision for maximum conversion and professional impact.*
