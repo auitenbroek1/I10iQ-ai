@@ -12,9 +12,11 @@ import './App.css';
 const App = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeService, setActiveService] = useState(null);
+  const [hoveredService, setHoveredService] = useState(null);
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
   const [isLearnMoreOpen, setIsLearnMoreOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,6 +31,30 @@ const App = () => {
       const currentScroll = Math.min(window.scrollY, totalHeight);
       const progress = Math.min((currentScroll / totalHeight) * 100, 100);
       setScrollProgress(Math.round(progress * 100) / 100); // Round to prevent micro-fluctuations
+      
+      // Handle mobile service activation based on scroll position
+      if (isMobile) {
+        const servicesSection = document.getElementById('services');
+        if (servicesSection) {
+          const serviceCards = servicesSection.querySelectorAll('[data-service-id]');
+          let activeServiceId = null;
+          
+          serviceCards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const cardCenter = rect.top + rect.height / 2;
+            const viewportCenter = window.innerHeight / 2;
+            
+            // If card center is near viewport center, activate it
+            if (Math.abs(cardCenter - viewportCenter) < rect.height / 2) {
+              activeServiceId = parseInt(card.getAttribute('data-service-id'));
+            }
+          });
+          
+          if (activeServiceId !== activeService) {
+            setActiveService(activeServiceId);
+          }
+        }
+      }
     };
     
     // Throttle scroll events to prevent excessive updates
@@ -45,6 +71,17 @@ const App = () => {
     
     window.addEventListener('scroll', throttledHandleScroll, { passive: true });
     return () => window.removeEventListener('scroll', throttledHandleScroll);
+  }, [activeService, isMobile]);
+
+  // Device detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   // Intersection observer hooks for animations
@@ -242,16 +279,22 @@ const App = () => {
           </motion.div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, index) => (
-              <motion.div
-                key={service.id}
-                initial={{ opacity: 0, y: 50 }}
-                animate={servicesInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer group"
-                onClick={() => setActiveService(activeService === service.id ? null : service.id)}
-              >
+            {services.map((service, index) => {
+              const isExpanded = isMobile ? activeService === service.id : hoveredService === service.id;
+              
+              return (
+                <motion.div
+                  key={service.id}
+                  data-service-id={service.id}
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={servicesInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.8, delay: index * 0.2 }}
+                  whileHover={{ y: -10, scale: 1.02 }}
+                  className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer group"
+                  onClick={() => !isMobile && setActiveService(activeService === service.id ? null : service.id)}
+                  onMouseEnter={() => !isMobile && setHoveredService(service.id)}
+                  onMouseLeave={() => !isMobile && setHoveredService(null)}
+                >
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${service.color} flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform duration-300`}>
                   {service.icon}
                 </div>
@@ -260,7 +303,7 @@ const App = () => {
                 <p className="text-gray-600 mb-4">{service.description}</p>
                 
                 <AnimatePresence>
-                  {activeService === service.id && (
+                  {isExpanded && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
@@ -282,22 +325,12 @@ const App = () => {
                           </motion.li>
                         ))}
                       </ul>
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setIsContactFormOpen(true);
-                        }}
-                        className="mt-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:from-blue-700 hover:to-purple-700 transition-all"
-                      >
-                        Learn More
-                      </motion.button>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -319,7 +352,7 @@ const App = () => {
               </p>
               <div className="space-y-4">
                 {[
-                  "20+ years of combined tech leadership experience",
+                  "20+ years of combined tech and business leadership experience",
                   "Proven track record with Fortune 500 companies",
                   "Hands-on implementation, not just consulting",
                   "ROI-focused approach with measurable outcomes"

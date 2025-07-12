@@ -196,7 +196,7 @@ const ContactForm = ({ isOpen, onClose }) => {
             disabled={isSubmitting}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className={`w-full py-3 px-6 rounded-lg font-semibold text-white transition-all ${
+            className={`w-full py-3 px-6 rounded-full font-semibold text-white transition-all ${
               isSubmitting
                 ? 'bg-gray-400 cursor-not-allowed'
                 : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700'

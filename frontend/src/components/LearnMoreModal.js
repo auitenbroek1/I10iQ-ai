@@ -104,7 +104,7 @@ const LearnMoreModal = ({ isOpen, onClose, onSchedule, onChat }) => {
                   onClick={handleScheduleClick}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all"
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all"
                 >
                   Schedule Consultation
                 </motion.button>
@@ -113,7 +113,7 @@ const LearnMoreModal = ({ isOpen, onClose, onSchedule, onChat }) => {
                   onClick={handleChatClick}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="flex-1 border-2 border-purple-600 text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-600 hover:text-white transition-all"
+                  className="flex-1 border-2 border-purple-600 text-purple-600 px-6 py-3 rounded-full font-semibold hover:bg-purple-600 hover:text-white transition-all"
                 >
                   Chat with Us
                 </motion.button>
