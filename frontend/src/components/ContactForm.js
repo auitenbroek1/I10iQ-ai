@@ -14,7 +14,7 @@ const ContactForm = ({ isOpen, onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://i10iq-ai-production.up.railway.app';
 
   const handleChange = (e) => {
     setFormData({

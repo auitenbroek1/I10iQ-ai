@@ -18,7 +18,7 @@ const AIChatWidget = () => {
   const [sessionId] = useState(() => uuidv4());
   const messagesEndRef = useRef(null);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://i10iq-ai-production.up.railway.app';
 
   const quickReplies = [
     "Tell me about AI consulting services",
