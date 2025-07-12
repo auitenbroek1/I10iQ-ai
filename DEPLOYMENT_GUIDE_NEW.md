@@ -1,17 +1,20 @@
 # i10iQ.AI Deployment Guide
 
-## Current Stable Version: v2.1.0-enhanced-interactions
+## Current Version: v2.2.0-custom-domain-deployed
 
-**Live URL**: https://frontend-39233eeq0-aarons-projects-30c7e6bd.vercel.app
-**Git Tag**: `v2.1.0-enhanced-interactions`
-**Created**: 2025-07-11
+**Live URLs**: 
+- **Primary**: https://i10iq.ai ✅
+- **Backend**: https://i10iq-ai-production.up.railway.app ✅
+**Git Tag**: `v2.2.0-custom-domain-deployed`
+**Created**: 2025-07-12
+**Status**: PRODUCTION DEPLOYED (Contact form debug needed)
 
 ## Quick Deployment
 
 ### From Stable Backup
 ```bash
 # Restore to stable version
-./RESTORE_STABLE_BACKUP_v2.1.sh
+./RESTORE_STABLE_BACKUP_v2.2.sh
 
 # Deploy to production
 cd frontend
