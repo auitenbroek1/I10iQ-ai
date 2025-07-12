@@ -10,6 +10,12 @@ from typing import List, Optional, Dict, Any
 import uuid
 from datetime import datetime
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -39,6 +45,7 @@ class ContactFormSubmission(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     name: str = Field(..., min_length=2, max_length=100)
     email: EmailStr
+    phone: Optional[str] = Field(None, max_length=20)
     company: Optional[str] = Field(None, max_length=100)
     message: str = Field(..., min_length=10, max_length=2000)
     service_interest: Optional[str] = None
@@ -47,6 +54,7 @@ class ContactFormSubmission(BaseModel):
 class ContactFormCreate(BaseModel):
     name: str = Field(..., min_length=2, max_length=100)
     email: EmailStr
+    phone: Optional[str] = Field(None, max_length=20)
     company: Optional[str] = Field(None, max_length=100)
     message: str = Field(..., min_length=10, max_length=2000)
     service_interest: Optional[str] = None
@@ -84,6 +92,11 @@ async def root():
 @api_router.get("/health")
 async def health_check():
     return {"status": "healthy", "timestamp": datetime.utcnow(), "service": "I10iQ.ai API"}
+
+@api_router.post("/test-contact")
+async def test_contact(form_data: ContactFormCreate):
+    """Test endpoint without MongoDB"""
+    return {"status": "success", "message": "Form data received", "data": form_data.dict()}
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
@@ -155,13 +168,6 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"],
 )
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
 
 @app.on_event("shutdown")
 async def shutdown_db_client():

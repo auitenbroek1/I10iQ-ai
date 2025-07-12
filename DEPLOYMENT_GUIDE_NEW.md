@@ -1,9 +1,9 @@
 # i10iQ.AI Deployment Guide
 
-## Current Stable Version: v2.0.0-blurple-final
+## Current Stable Version: v2.1.0-enhanced-interactions
 
-**Live URL**: https://frontend-4fxkrilxx-aarons-projects-30c7e6bd.vercel.app
-**Git Tag**: `v2.0.0-blurple-final`
+**Live URL**: https://frontend-39233eeq0-aarons-projects-30c7e6bd.vercel.app
+**Git Tag**: `v2.1.0-enhanced-interactions`
 **Created**: 2025-07-11
 
 ## Quick Deployment
@@ -11,7 +11,7 @@
 ### From Stable Backup
 ```bash
 # Restore to stable version
-./RESTORE_STABLE_BACKUP_v2.sh
+./RESTORE_STABLE_BACKUP_v2.1.sh
 
 # Deploy to production
 cd frontend
@@ -28,6 +28,17 @@ vercel deploy --prod
 
 ## What's Included in Current Version
 
+### ✅ Enhanced Service Interactions
+- **Desktop Hover**: Service cards automatically expand on mouse hover, collapse on mouse leave
+- **Mobile Scroll**: Service cards expand as user scrolls past them, only one open at a time
+- **Smart Device Detection**: Automatically switches between hover and scroll behaviors
+- **Clean Interface**: Removed Learn More buttons from service cards
+
+### ✅ Consistent Button Styling
+- **Modal Buttons**: All buttons in Learn More and Contact Form modals use rounded-full
+- **Visual Consistency**: Matches main page button styling throughout the site
+- **Professional Look**: Unified design language across all interactions
+
 ### ✅ Complete Blurple Rebrand
 - Unified color scheme using #5c4bea (blurple)
 - Consistent branding with "i10iQ.AI" 
@@ -38,26 +49,29 @@ vercel deploy --prod
 - **The AI-First Leader**: Advanced skills for competitive advantage  
 - **AI Discovery Workshop**: Strategic roadmap development
 - **AI Build Services**: Custom solutions and automation
+- **Experience Copy**: "20+ years of combined tech and business leadership experience"
 
 ### ✅ Technical Improvements
-- Fixed mobile layout shifts
-- Optimized image sizing and positioning
+- Advanced interaction logic with device detection
+- Optimized scroll-based activation for mobile
+- Hover-based expansion for desktop
 - Enhanced chat widget with updated branding
 - Responsive design across all devices
-- Smooth animations and interactions
+- Smooth, performant animations
 
-### ✅ New Components
+### ✅ Production-Ready Components
 - `BrandLogo.js`: Consistent brand display
-- `LearnMoreModal.js`: Detailed service information
-- Enhanced `ContactForm.js` with phone field
+- `LearnMoreModal.js`: Detailed service information with rounded buttons
+- Enhanced `ContactForm.js` with phone field and rounded submit button
 - Updated `AIChatWidget.js` with new messaging
+- Smart interaction logic in main `App.js`
 
 ## File Structure
 ```
 i10iQ-ai/
 ├── frontend/                    # Main application
-├── STABLE_BACKUP_v2.0_blurple-final/  # Stable backup
-├── RESTORE_STABLE_BACKUP_v2.sh # Quick restore script
+├── STABLE_BACKUP_v2.1_enhanced-interactions/  # Stable backup
+├── RESTORE_STABLE_BACKUP_v2.1.sh # Quick restore script
 ├── DEPLOYMENT_GUIDE_NEW.md     # This file
 └── README.md                   # Project overview
 ```
@@ -95,9 +109,9 @@ i10iQ-ai/
 ## Backup & Recovery
 
 ### Current Backup System
-- **Stable Backup**: `STABLE_BACKUP_v2.0_blurple-final/`
-- **Restore Script**: `RESTORE_STABLE_BACKUP_v2.sh`
-- **Git Tags**: `v2.0.0-blurple-final`
+- **Stable Backup**: `STABLE_BACKUP_v2.1_enhanced-interactions/`
+- **Restore Script**: `RESTORE_STABLE_BACKUP_v2.1.sh`
+- **Git Tags**: `v2.1.0-enhanced-interactions`
 
 ### Creating New Backups
 ```bash
@@ -139,15 +153,15 @@ git tag -a v2.1.0 -m "Description of changes"
 
 ### Reset to Stable Version
 ```bash
-./RESTORE_STABLE_BACKUP_v2.sh
+./RESTORE_STABLE_BACKUP_v2.1.sh
 ```
 
 ## Contact & Support
 - **Primary Contact**: Aaron Uitenbroek (auitenbroek@gmail.com)
 - **Project Repo**: Local development environment
 - **Deployment Platform**: Vercel
-- **Latest Deployment**: https://frontend-4fxkrilxx-aarons-projects-30c7e6bd.vercel.app
+- **Latest Deployment**: https://frontend-39233eeq0-aarons-projects-30c7e6bd.vercel.app
 
 ---
 **Last Updated**: 2025-07-11
-**Version**: v2.0.0-blurple-final
+**Version**: v2.1.0-enhanced-interactions
