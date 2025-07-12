@@ -168,10 +168,10 @@ const ContactForm = ({ isOpen, onClose }) => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all"
             >
               <option value="">Select a service</option>
-              <option value="education">Level-Up Empowerment</option>
-              <option value="implementation">Hands-On Implementation</option>
-              <option value="discovery">Discovery Workshops</option>
-              <option value="build">Build Services</option>
+              <option value="ai-level-up">The AI Level-Up</option>
+              <option value="ai-first-leader">The AI-First Leader</option>
+              <option value="ai-discovery">AI Discovery Workshop</option>
+              <option value="ai-build">AI Build Services</option>
               <option value="consultation">General Consultation</option>
             </select>
           </div>
