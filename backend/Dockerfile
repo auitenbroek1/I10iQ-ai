@@ -22,5 +22,5 @@ ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 # Expose the port
 EXPOSE 8000
 
-# Run the application
-CMD uvicorn server:app --host 0.0.0.0 --port ${PORT:-8000}
+# Run the application using shell form to expand environment variables
+CMD ["sh", "-c", "uvicorn server:app --host 0.0.0.0 --port ${PORT:-8000}"]
