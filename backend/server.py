@@ -28,23 +28,16 @@ db_name = os.environ.get('DB_NAME', 'i10iq_dev')
 # Log connection attempt
 logger.info(f"Attempting MongoDB connection to database: {db_name}")
 
+# For Railway, we need to handle SSL differently
+# Try a simplified connection first
 try:
-    # Configure MongoDB client with specific settings for Railway
-    client = AsyncIOMotorClient(
-        mongo_url,
-        serverSelectionTimeoutMS=20000,
-        connectTimeoutMS=20000,
-        socketTimeoutMS=20000,
-        tls=True,
-        tlsAllowInvalidCertificates=True,
-        tlsAllowInvalidHostnames=True,
-        retryWrites=True,
-        w='majority'
-    )
+    # Simple connection - let Motor handle the connection string parameters
+    client = AsyncIOMotorClient(mongo_url)
     db = client[db_name]
     logger.info("MongoDB client initialized successfully")
 except Exception as e:
     logger.error(f"Failed to initialize MongoDB client: {str(e)}")
+    logger.error(f"Connection URL pattern: {'mongodb+srv' if 'mongodb+srv' in mongo_url else 'mongodb'}")
     # Initialize with a dummy client that will fail on actual operations
     client = None
     db = None
