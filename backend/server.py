@@ -21,20 +21,33 @@ logger = logging.getLogger(__name__)
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection with SSL certificate handling
+# MongoDB connection with Railway-specific configuration
 mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
+db_name = os.environ.get('DB_NAME', 'i10iq_dev')
 
-# Configure MongoDB client with SSL certificates
-if 'mongodb+srv' in mongo_url or 'ssl=true' in mongo_url:
+# Log connection attempt
+logger.info(f"Attempting MongoDB connection to database: {db_name}")
+
+try:
+    # Configure MongoDB client with specific settings for Railway
     client = AsyncIOMotorClient(
         mongo_url,
-        tlsCAFile=certifi.where(),
-        serverSelectionTimeoutMS=5000
+        serverSelectionTimeoutMS=20000,
+        connectTimeoutMS=20000,
+        socketTimeoutMS=20000,
+        tls=True,
+        tlsAllowInvalidCertificates=True,
+        tlsAllowInvalidHostnames=True,
+        retryWrites=True,
+        w='majority'
     )
-else:
-    client = AsyncIOMotorClient(mongo_url)
-
-db = client[os.environ.get('DB_NAME', 'i10iq_dev')]
+    db = client[db_name]
+    logger.info("MongoDB client initialized successfully")
+except Exception as e:
+    logger.error(f"Failed to initialize MongoDB client: {str(e)}")
+    # Initialize with a dummy client that will fail on actual operations
+    client = None
+    db = None
 
 # Create the main app without a prefix
 app = FastAPI()
@@ -122,6 +135,13 @@ async def test_mongodb():
         
         logger.info(f"Testing MongoDB connection to: {mongo_url_safe}")
         logger.info(f"Database name: {os.environ.get('DB_NAME', 'Not set')}")
+        
+        if client is None:
+            return {
+                "status": "error",
+                "error": "MongoDB client not initialized",
+                "connection_string": mongo_url_safe
+            }
         
         # Test connection
         result = await client.admin.command('ping')
