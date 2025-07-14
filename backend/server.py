@@ -98,6 +98,42 @@ async def test_contact(form_data: ContactFormCreate):
     """Test endpoint without MongoDB"""
     return {"status": "success", "message": "Form data received", "data": form_data.dict()}
 
+@api_router.get("/test-mongodb")
+async def test_mongodb():
+    """Test MongoDB connection"""
+    try:
+        # Log connection details (without password)
+        mongo_url_safe = os.environ.get('MONGO_URL', 'Not set')
+        if 'mongodb' in mongo_url_safe:
+            # Hide password in connection string
+            import re
+            mongo_url_safe = re.sub(r'://[^:]+:[^@]+@', '://***:***@', mongo_url_safe)
+        
+        logger.info(f"Testing MongoDB connection to: {mongo_url_safe}")
+        logger.info(f"Database name: {os.environ.get('DB_NAME', 'Not set')}")
+        
+        # Test connection
+        result = await client.admin.command('ping')
+        
+        # Test database access
+        collections = await db.list_collection_names()
+        
+        return {
+            "status": "success",
+            "mongodb_ping": result,
+            "database": db.name,
+            "collections": collections,
+            "connection_string": mongo_url_safe
+        }
+    except Exception as e:
+        logger.error(f"MongoDB test failed: {str(e)}")
+        return {
+            "status": "error",
+            "error": str(e),
+            "error_type": type(e).__name__,
+            "connection_string": mongo_url_safe if 'mongo_url_safe' in locals() else "Not available"
+        }
+
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
     status_dict = input.dict()
@@ -113,11 +149,31 @@ async def get_status_checks():
 @api_router.post("/contact", response_model=ContactFormSubmission)
 async def submit_contact_form(form_data: ContactFormCreate):
     """Submit contact form data"""
-    contact_dict = form_data.dict()
-    contact_obj = ContactFormSubmission(**contact_dict)
-    result = await db.contact_submissions.insert_one(contact_obj.dict())
-    logger.info(f"Contact form submitted: {contact_obj.email}")
-    return contact_obj
+    try:
+        logger.info(f"Received contact form data: {form_data.dict()}")
+        
+        # Test MongoDB connection
+        try:
+            await client.admin.command('ping')
+            logger.info("MongoDB connection successful")
+        except Exception as e:
+            logger.error(f"MongoDB connection failed: {str(e)}")
+            raise
+        
+        contact_dict = form_data.dict()
+        contact_obj = ContactFormSubmission(**contact_dict)
+        
+        logger.info(f"Attempting to insert contact submission for: {contact_obj.email}")
+        result = await db.contact_submissions.insert_one(contact_obj.dict())
+        logger.info(f"Contact form submitted successfully: {contact_obj.email}, ID: {result.inserted_id}")
+        
+        return contact_obj
+    except Exception as e:
+        logger.error(f"Error submitting contact form: {str(e)}")
+        logger.error(f"Error type: {type(e).__name__}")
+        import traceback
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        raise
 
 @api_router.post("/newsletter", response_model=NewsletterSignup)
 async def newsletter_signup(signup_data: NewsletterSignupCreate):
