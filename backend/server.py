@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field, EmailStr
 from typing import List, Optional, Dict, Any
 import uuid
 from datetime import datetime
+import certifi
 
 # Configure logging
 logging.basicConfig(
@@ -20,9 +21,19 @@ logger = logging.getLogger(__name__)
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection
+# MongoDB connection with SSL certificate handling
 mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
-client = AsyncIOMotorClient(mongo_url)
+
+# Configure MongoDB client with SSL certificates
+if 'mongodb+srv' in mongo_url or 'ssl=true' in mongo_url:
+    client = AsyncIOMotorClient(
+        mongo_url,
+        tlsCAFile=certifi.where(),
+        serverSelectionTimeoutMS=5000
+    )
+else:
+    client = AsyncIOMotorClient(mongo_url)
+
 db = client[os.environ.get('DB_NAME', 'i10iq_dev')]
 
 # Create the main app without a prefix
