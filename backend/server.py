@@ -31,8 +31,24 @@ logger.info(f"Attempting MongoDB connection to database: {db_name}")
 # For Railway, we need to handle SSL differently
 # Try a simplified connection first
 try:
-    # Simple connection - let Motor handle the connection string parameters
-    client = AsyncIOMotorClient(mongo_url)
+    # For mongodb+srv, we need special handling on Railway
+    if 'mongodb+srv' in mongo_url:
+        # Railway has issues with SRV records and SSL, so we need to modify the connection
+        import ssl
+        ssl_context = ssl.create_default_context()
+        ssl_context.check_hostname = False
+        ssl_context.verify_mode = ssl.CERT_NONE
+        
+        client = AsyncIOMotorClient(
+            mongo_url,
+            tlsContext=ssl_context,
+            serverSelectionTimeoutMS=30000,
+            directConnection=False
+        )
+    else:
+        # Simple connection for standard mongodb:// URLs
+        client = AsyncIOMotorClient(mongo_url)
+    
     db = client[db_name]
     logger.info("MongoDB client initialized successfully")
 except Exception as e:
