@@ -31,26 +31,22 @@ logger.info(f"Attempting MongoDB connection to database: {db_name}")
 # For Railway, we need to handle SSL differently
 # Try a simplified connection first
 try:
-    # For mongodb+srv, we need special handling on Railway
-    if 'mongodb+srv' in mongo_url:
-        # Railway has issues with SRV records and SSL, so we need to modify the connection
-        import ssl
-        ssl_context = ssl.create_default_context()
-        ssl_context.check_hostname = False
-        ssl_context.verify_mode = ssl.CERT_NONE
-        
-        client = AsyncIOMotorClient(
-            mongo_url,
-            tlsContext=ssl_context,
-            serverSelectionTimeoutMS=30000,
-            directConnection=False
-        )
-    else:
-        # Simple connection for standard mongodb:// URLs
-        client = AsyncIOMotorClient(mongo_url)
+    # For Railway, disable SSL entirely if we're having handshake issues
+    # Remove SSL from connection string for testing
+    test_url = mongo_url.replace('ssl=true', 'ssl=false').replace('&ssl=true', '').replace('?ssl=true', '')
+    
+    logger.info(f"Attempting connection without SSL: {test_url[:50]}...")
+    
+    client = AsyncIOMotorClient(
+        test_url,
+        serverSelectionTimeoutMS=30000,
+        connectTimeoutMS=30000,
+        socketTimeoutMS=30000,
+        ssl=False  # Explicitly disable SSL
+    )
     
     db = client[db_name]
-    logger.info("MongoDB client initialized successfully")
+    logger.info("MongoDB client initialized successfully without SSL")
 except Exception as e:
     logger.error(f"Failed to initialize MongoDB client: {str(e)}")
     logger.error(f"Connection URL pattern: {'mongodb+srv' if 'mongodb+srv' in mongo_url else 'mongodb'}")
